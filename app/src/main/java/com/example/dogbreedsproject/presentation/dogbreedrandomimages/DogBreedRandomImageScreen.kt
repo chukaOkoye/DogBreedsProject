@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
@@ -116,7 +117,14 @@ fun DogBreedRandomImageScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
 
+                    item(success.images.message){
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(text = "${success.images.message.size}/10 Images Available",
+                                fontSize = 18.sp)
+                    }
+
                     items(success.images.message) { dogs ->
+                        Spacer(modifier = Modifier.height(20.dp))
                         GlideImage(
                             model = dogs,
                             contentDescription = "Dog images",

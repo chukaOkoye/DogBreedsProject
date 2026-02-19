@@ -23,6 +23,7 @@
 - **DI**: Contains the dependency injection module for the application to help provide dependencies systematically.
 - **Domain**: Contains the usecases, domain models and repository interfaces.
 - **Presentation**: Contains the viewModels for both the DogBreedListScreen and DogBreedRandomImageScreen, along with the data mappers to transform the domain layer data for the UI, and the MainNavGraph that contains the navigation logic to go from one screen to another.
+- Also note that not all dog breeds have ten images available to display.
 - **Tests**: Made unit tests for both viewModels to confirm that the state handling logic is correct.
 
 ## Future implementations

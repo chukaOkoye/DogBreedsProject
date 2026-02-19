@@ -28,3 +28,8 @@
 ## Future implementations
 - If I had more time I would use Coil for image loading as it handles caching by default.
 - Would add more tests for the other layers like for the repository.
+
+## Screenshots
+<img width="261" height="565" alt="Screenshot 2026-02-19 at 12 39 37" src="https://github.com/user-attachments/assets/576391c2-e19b-4c45-ac43-3c0a2dd03784" />
+<img width="279" height="572" alt="Screenshot 2026-02-19 at 12 39 55" src="https://github.com/user-attachments/assets/d4b75bf4-8611-42b1-90f6-3917cb9b0034" />
+

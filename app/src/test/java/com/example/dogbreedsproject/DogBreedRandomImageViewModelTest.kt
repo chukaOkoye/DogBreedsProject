@@ -3,8 +3,8 @@ package com.example.dogbreedsproject
 import com.example.dogbreedsproject.MockedDogBreeds.mockedDogImageList
 import com.example.dogbreedsproject.MockedDogBreeds.mockedDogImageListUIModel
 import com.example.dogbreedsproject.domain.DogBreedImageListUseCase
-import com.example.dogbreedsproject.presentation.dogbreedrandom.DogBreedRandomImageUIState
-import com.example.dogbreedsproject.presentation.dogbreedrandom.DogBreedRandomImageViewModel
+import com.example.dogbreedsproject.presentation.dogbreedrandomimages.DogBreedRandomImageUIState
+import com.example.dogbreedsproject.presentation.dogbreedrandomimages.DogBreedRandomImageViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle

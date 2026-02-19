@@ -1,10 +1,10 @@
-package com.example.dogbreedsproject.presentation.dogbreedrandom
+package com.example.dogbreedsproject.presentation.dogbreedrandomimages
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.dogbreedsproject.domain.DogBreedImageListUseCase
-import com.example.dogbreedsproject.presentation.dogbreedrandom.mappers.DogBreedImageListUIModel
-import com.example.dogbreedsproject.presentation.dogbreedrandom.mappers.toDogBreedImageListUIModel
+import com.example.dogbreedsproject.presentation.dogbreedrandomimages.mappers.DogBreedImageListUIModel
+import com.example.dogbreedsproject.presentation.dogbreedrandomimages.mappers.toDogBreedImageListUIModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

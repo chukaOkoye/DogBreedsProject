@@ -5,7 +5,7 @@ package com.example.dogbreedsproject
 import com.example.dogbreedsproject.domain.model.DogBreedImageList
 import com.example.dogbreedsproject.domain.model.DogBreedsList
 import com.example.dogbreedsproject.presentation.dogbreedlist.mappers.DogBreedListUIModel
-import com.example.dogbreedsproject.presentation.dogbreedrandom.mappers.DogBreedImageListUIModel
+import com.example.dogbreedsproject.presentation.dogbreedrandomimages.mappers.DogBreedImageListUIModel
 
 object MockedDogBreeds {
 

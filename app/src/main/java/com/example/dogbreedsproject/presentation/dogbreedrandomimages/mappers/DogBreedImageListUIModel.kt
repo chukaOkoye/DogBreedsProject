@@ -1,4 +1,4 @@
-package com.example.dogbreedsproject.presentation.dogbreedrandom.mappers
+package com.example.dogbreedsproject.presentation.dogbreedrandomimages.mappers
 
 import com.example.dogbreedsproject.domain.model.DogBreedImageList
 

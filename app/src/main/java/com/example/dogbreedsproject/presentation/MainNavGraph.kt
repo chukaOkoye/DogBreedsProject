@@ -1,15 +1,13 @@
 package com.example.dogbreedsproject.presentation
 
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navigation
 import androidx.navigation.toRoute
 import com.example.dogbreedsproject.presentation.dogbreedlist.DogBreedListScreen
-import com.example.dogbreedsproject.presentation.dogbreedrandom.DogBreedRandomImageScreen
+import com.example.dogbreedsproject.presentation.dogbreedrandomimages.DogBreedRandomImageScreen
 import kotlinx.serialization.Serializable
 
 sealed class Routes{

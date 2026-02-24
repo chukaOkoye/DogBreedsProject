@@ -2,7 +2,7 @@ package com.example.dogbreedsproject.presentation.dogbreedrandomimages
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.dogbreedsproject.domain.DogBreedImageListUseCase
+import com.example.dogbreedsproject.domain.GetDogBreedImageListUseCase
 import com.example.dogbreedsproject.presentation.dogbreedrandomimages.mappers.DogBreedImageListUIModel
 import com.example.dogbreedsproject.presentation.dogbreedrandomimages.mappers.toDogBreedImageListUIModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,7 +22,7 @@ sealed class DogBreedRandomImageUIState{
 }
 
 @HiltViewModel
-class DogBreedRandomImageViewModel @Inject constructor(private val useCase: DogBreedImageListUseCase): ViewModel() {
+class DogBreedRandomImageViewModel @Inject constructor(private val useCase: GetDogBreedImageListUseCase): ViewModel() {
 
     private val _state = MutableStateFlow<DogBreedRandomImageUIState>(DogBreedRandomImageUIState.Loading)
     val state = _state.asStateFlow()

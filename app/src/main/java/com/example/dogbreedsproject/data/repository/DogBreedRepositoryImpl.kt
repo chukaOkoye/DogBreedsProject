@@ -7,7 +7,7 @@ import com.example.dogbreedsproject.data.db.toDogBreedImagesEntity
 import com.example.dogbreedsproject.data.db.toDogBreedsEntity
 import com.example.dogbreedsproject.data.model.DogBreedImageListDTO
 import com.example.dogbreedsproject.data.model.DogBreedsListDTO
-import com.example.dogbreedsproject.domain.DogBreedRepository
+import com.example.dogbreedsproject.domain.repository.DogBreedRepository
 import com.example.dogbreedsproject.domain.model.DogBreedImageList
 import com.example.dogbreedsproject.domain.model.DogBreedsList
 import java.io.IOException

@@ -2,7 +2,7 @@ package com.example.dogbreedsproject
 
 import com.example.dogbreedsproject.MockedDogBreeds.mockedDogImageList
 import com.example.dogbreedsproject.MockedDogBreeds.mockedDogImageListUIModel
-import com.example.dogbreedsproject.domain.DogBreedImageListUseCase
+import com.example.dogbreedsproject.domain.GetDogBreedImageListUseCase
 import com.example.dogbreedsproject.presentation.dogbreedrandomimages.DogBreedRandomImageUIState
 import com.example.dogbreedsproject.presentation.dogbreedrandomimages.DogBreedRandomImageViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -20,7 +20,7 @@ class DogBreedRandomImageViewModelTest {
     @get:Rule
     val rule = CoroutineTestRule(StandardTestDispatcher())
 
-    val useCase : DogBreedImageListUseCase = mock()
+    val useCase : GetDogBreedImageListUseCase = mock()
 
     lateinit var viewModel : DogBreedRandomImageViewModel
 

@@ -2,7 +2,7 @@ package com.example.dogbreedsproject.presentation.dogbreedlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.dogbreedsproject.domain.DogBreedListUseCase
+import com.example.dogbreedsproject.domain.GetDogBreedListUseCase
 import com.example.dogbreedsproject.presentation.dogbreedlist.mappers.DogBreedListUIModel
 import com.example.dogbreedsproject.presentation.dogbreedlist.mappers.toDogBreedListUIModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,7 +22,7 @@ sealed class DogBreedListUIState{
 }
 
 @HiltViewModel
-class DogBreedListViewModel @Inject constructor(private val useCase: DogBreedListUseCase): ViewModel() {
+class DogBreedListViewModel @Inject constructor(private val useCase: GetDogBreedListUseCase): ViewModel() {
 
     private val _state = MutableStateFlow<DogBreedListUIState>(DogBreedListUIState.Loading)
     val state = _state.asStateFlow()

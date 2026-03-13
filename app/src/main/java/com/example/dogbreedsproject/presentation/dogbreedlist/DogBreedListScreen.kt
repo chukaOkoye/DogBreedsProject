@@ -48,7 +48,6 @@ fun DogBreedListScreen(
     onSearchNavigate:() -> Unit
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-    val scope = rememberCoroutineScope()
 
     LaunchedEffect(true) {
         viewModel.loadAllDogBreeds()

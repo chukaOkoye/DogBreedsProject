@@ -12,6 +12,44 @@ import dagger.hilt.components.SingletonComponent
 abstract class RepositoryModule{
 
     @Binds
-    abstract fun bindsDogBreedRepository(repositoryImpl: DogBreedRepositoryImpl): DogBreedRepository
-
+    abstract fun bindDogBreedRepository(impl: DogBreedRepositoryImpl): DogBreedRepository
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//@Module
+//@InstallIn(SingletonComponent::class)
+//abstract class RepositoryModule{
+//
+//    @Binds
+//    abstract fun bindsDogBreedRepository(repositoryImpl: DogBreedRepositoryImpl): DogBreedRepository
+//
+//}

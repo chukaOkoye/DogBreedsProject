@@ -1,8 +1,11 @@
 package com.example.dogbreedsproject.data.db
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Fts4
 import androidx.room.PrimaryKey
 import com.example.dogbreedsproject.data.model.DogBreedsListDTO
+import com.example.dogbreedsproject.domain.model.DogBreedsList
 
 @Entity(tableName = "dogBreeds")
 data class DogBreedsListEntity(
@@ -17,4 +20,12 @@ fun DogBreedsListDTO.toDogBreedsEntity(): DogBreedsListEntity{
         status = status
     )
 }
+
+fun DogBreedsListEntity.toDomain(): DogBreedsList{
+    return DogBreedsList(
+        message = message,
+        status = status
+    )
+}
+
 

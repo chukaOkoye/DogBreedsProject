@@ -17,6 +17,9 @@ sealed class Routes{
 
     @Serializable
     data class DogBreedRandomImageRoute(val breedName: String)
+
+    @Serializable
+    data object DogBreedSearchRoute
 }
 
 @Composable
@@ -28,6 +31,9 @@ fun MainNavGraph(navController: NavHostController = rememberNavController()) {
                 onNavigate = { name ->
                     navController.navigate(Routes.DogBreedRandomImageRoute(name))
                 },
+                onSearchNavigate = {
+                    navController.navigate(Routes.DogBreedSearchRoute)
+                }
             )
         }
 
@@ -39,6 +45,14 @@ fun MainNavGraph(navController: NavHostController = rememberNavController()) {
                     navController.popBackStack()
                 })
 
+        }
+
+        composable<Routes.DogBreedSearchRoute>{
+            DogBreedSearchScreen(
+                onBackClicked = {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 

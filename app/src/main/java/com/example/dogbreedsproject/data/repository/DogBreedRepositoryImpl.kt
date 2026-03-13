@@ -3,13 +3,18 @@ package com.example.dogbreedsproject.data.repository
 import com.example.dogbreedsproject.data.api.ApiService
 import com.example.dogbreedsproject.data.db.DogBreedImagesDao
 import com.example.dogbreedsproject.data.db.DogBreedsListDao
+import com.example.dogbreedsproject.data.db.DogBreedsListEntity
 import com.example.dogbreedsproject.data.db.toDogBreedImagesEntity
 import com.example.dogbreedsproject.data.db.toDogBreedsEntity
+import com.example.dogbreedsproject.data.db.toDomain
 import com.example.dogbreedsproject.data.model.DogBreedImageListDTO
 import com.example.dogbreedsproject.data.model.DogBreedsListDTO
 import com.example.dogbreedsproject.domain.repository.DogBreedRepository
 import com.example.dogbreedsproject.domain.model.DogBreedImageList
+import com.example.dogbreedsproject.domain.model.DogBreedSearchResult
 import com.example.dogbreedsproject.domain.model.DogBreedsList
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import java.io.IOException
 import javax.inject.Inject
 
@@ -71,6 +76,19 @@ class DogBreedRepositoryImpl @Inject constructor(private val apiService: ApiServ
             Result.failure(e)
         }
     }
+
+    override fun getDogBreedSearchQuery(input: String): Flow<DogBreedSearchResult> {
+
+        val dogBreedSearch = dogBreedsListDao.getSpecificDogBreed("$input*")
+        return dogBreedSearch.map { dogs ->
+            DogBreedSearchResult(
+                dogList = dogs.map { it.toDomain() }
+            )
+        }
+
+    }
+
+
 }
 
 fun DogBreedImageListDTO.toImageListDomain(): DogBreedImageList{
@@ -79,9 +97,22 @@ fun DogBreedImageListDTO.toImageListDomain(): DogBreedImageList{
     )
 }
 
+
 fun DogBreedsListDTO.toBreedsListDomain(): DogBreedsList{
     return DogBreedsList(
         message = message,
         status = status
     )
 }
+
+fun DogBreedsListEntity.toDomain(): DogBreedSearchResult{
+    return DogBreedSearchResult(
+        dogList = listOf(
+            DogBreedsList(
+                this.message,
+                this.status,
+            )
+        )
+    )
+}
+

@@ -1,4 +1,4 @@
-package com.example.dogbreedsproject.presentation
+package com.example.dogbreedsproject.presentation.dogbreedsearch
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -113,13 +113,12 @@ fun DogBreedSearchContent(onSearchQueryChanged:(String) -> Unit,
             }
 
             is SearchResultUIState.Error -> {
-                val error = searchResultUIState as SearchResultUIState.Error
                 Column(
                     modifier = Modifier
                         .fillMaxWidth().padding(paddingValues),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text("Error displaying search via: $error")
+                    Text("Error displaying search via: $searchResultUIState")
                 }
             }
 
@@ -197,7 +196,7 @@ fun DogBreedSearchContent(onSearchQueryChanged:(String) -> Unit,
                     horizontalAlignment = Alignment.CenterHorizontally){
 
                     items(searchResultUIState.dogList){ dogs ->
-                        Text("${dogs}")
+                        Text("$dogs")
                     }
                 }
             }

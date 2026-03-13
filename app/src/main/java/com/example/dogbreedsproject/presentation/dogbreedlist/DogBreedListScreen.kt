@@ -105,11 +105,7 @@ fun DogBreedListScreen(
                         textAlign = Center
                     )
                     Spacer(modifier = Modifier.height(20.dp))
-                    Button({
-                        scope.launch {
-                            viewModel.loadAllDogBreeds()
-                        }
-                    }
+                    Button(onClick = viewModel::onRetryClicked
                     ) {
                         Text("Try again")
                     }

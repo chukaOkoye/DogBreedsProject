@@ -41,5 +41,11 @@ class DogBreedListViewModel @Inject constructor(private val useCase: GetDogBreed
             )
         }
     }
+
+    fun onRetryClicked(){
+        viewModelScope.launch {
+            loadAllDogBreeds()
+        }
+    }
 }
 

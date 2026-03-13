@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.dogbreedsproject.presentation.dogbreedlist.DogBreedListScreen
 import com.example.dogbreedsproject.presentation.dogbreedrandomimages.DogBreedRandomImageScreen
+import com.example.dogbreedsproject.presentation.dogbreedsearch.DogBreedSearchScreen
 import kotlinx.serialization.Serializable
 
 sealed class Routes{

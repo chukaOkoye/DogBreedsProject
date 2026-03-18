@@ -1,5 +1,7 @@
 package com.example.dogbreedsproject.data.repository
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import com.example.dogbreedsproject.data.api.ApiService
 import com.example.dogbreedsproject.data.db.DogBreedImagesDao
 import com.example.dogbreedsproject.data.db.DogBreedsListDao
@@ -14,9 +16,13 @@ import com.example.dogbreedsproject.domain.model.DogBreedImageList
 import com.example.dogbreedsproject.domain.model.DogBreedSearchResult
 import com.example.dogbreedsproject.domain.model.DogBreedsList
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 import javax.inject.Inject
+import kotlin.collections.emptyList
+import kotlin.collections.emptyMap
 
 class DogBreedRepositoryImpl @Inject constructor(private val apiService: ApiService,
                                                  private val dogBreedsListDao: DogBreedsListDao,
@@ -77,15 +83,15 @@ class DogBreedRepositoryImpl @Inject constructor(private val apiService: ApiServ
         }
     }
 
-    override fun getDogBreedSearchQuery(input: String): Flow<DogBreedSearchResult> {
+    override fun getDogBreedSearchQuery(input: String): Flow<DogBreedSearchResult>{
 
-        val dogBreedSearch = dogBreedsListDao.getSpecificDogBreed("$input*")
-        return dogBreedSearch.map { dogs ->
-            DogBreedSearchResult(
-                dogList = dogs.map { it.toDomain() }
-            )
+        return dogBreedsListDao.getSpecificDogBreed("%$input%").map { entities ->
+            val entity = entities.firstOrNull()?.message ?: emptyMap()
+            val filteredMap = entity.filter { (breedName,_) ->
+                breedName.contains(input)
+            }
+            DogBreedSearchResult(filteredMap)
         }
-
     }
 
 
@@ -105,14 +111,44 @@ fun DogBreedsListDTO.toBreedsListDomain(): DogBreedsList{
     )
 }
 
-fun DogBreedsListEntity.toDomain(): DogBreedSearchResult{
-    return DogBreedSearchResult(
-        dogList = listOf(
-            DogBreedsList(
-                this.message,
-                this.status,
-            )
-        )
-    )
-}
+//  return dogBreedsListDao.getSpecificDogBreed("%$input").map { entities ->
+//           val entity = entities.firstOrNull()?.message ?: emptyMap()
+//
+//           val filteredMap = entity.filter{ (breedName,_) ->
+//               breedName.contains(input, true)
+//           }
+//           DogBreedSearchResult(message = filteredMap)
+//       }
 
+
+//    override fun getDogBreedSearchQuery(input: String): Flow<DogBreedSearchResult> {
+//        // 1. Get the Flow from the DAO
+//        return dogBreedsListDao.getSpecificDogBreed("%$input%").map { entities ->
+//            // 2. Get the one row that contains the full JSON map
+//            val entity = entities.firstOrNull()
+//            val fullMap = entity?.message ?: emptyMap()
+//
+//            // 3. Filter the Map keys in Kotlin based on the search input
+//            val filteredMap = fullMap.filter { (breedName, _) ->
+//                breedName.contains(input, ignoreCase = true)
+//            }
+//
+//            // 4. Wrap the filtered map in your result class
+//            DogBreedSearchResult(message = filteredMap)
+//        }
+//    }
+
+
+
+
+//fun DogBreedsListEntity.toDomain(): DogBreedSearchResult{
+//    return DogBreedSearchResult(
+//        message = (
+//            DogBreedsList(
+//                this.message,
+//                this.status,
+//            )
+//        )
+//    )
+//}
+//

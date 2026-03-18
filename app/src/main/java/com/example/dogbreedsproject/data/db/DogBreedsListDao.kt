@@ -1,6 +1,7 @@
 package com.example.dogbreedsproject.data.db
 
 import androidx.room.Dao
+import androidx.room.Fts4
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -15,6 +16,6 @@ interface DogBreedsListDao {
     @Query("SELECT * FROM dogBreeds")
     suspend fun getAllDogBreeds(): List<DogBreedsListEntity>
 
-    @Query("SELECT * FROM dogBreeds WHERE message LIKE '%' || :input || '%'")
+    @Query("SELECT * FROM dogBreeds WHERE message LIKE '%' || :input")
     fun getSpecificDogBreed(input: String): Flow<List<DogBreedsListEntity>>
 }

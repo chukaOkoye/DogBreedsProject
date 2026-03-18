@@ -41,6 +41,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
@@ -73,7 +74,8 @@ fun DogBreedSearchContent(onSearchQueryChanged:(String) -> Unit,
                           onSearchTriggered:(String) -> Unit,
                           onBackClicked: () -> Unit,
                           searchQuery: String,
-                          searchResultUIState: SearchResultUIState){
+                          searchResultUIState: SearchResultUIState
+){
 
     Scaffold(
         Modifier.fillMaxSize(),
@@ -124,6 +126,7 @@ fun DogBreedSearchContent(onSearchQueryChanged:(String) -> Unit,
 
             is SearchResultUIState.Success -> {
 
+
                 val focusRequester = remember{ FocusRequester() }
                 val keyboardController = LocalSoftwareKeyboardController.current
 
@@ -131,94 +134,113 @@ fun DogBreedSearchContent(onSearchQueryChanged:(String) -> Unit,
                     keyboardController?.hide()
                     onSearchTriggered(searchQuery)
                 }
-
-                Row(verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth().padding(paddingValues)){
-                    TextField(
-                        colors = TextFieldDefaults.colors(
-                            focusedIndicatorColor = Color.Transparent,
-                            unfocusedTextColor = Color.Transparent,
-                            disabledIndicatorColor = Color.Transparent
-                        ),
-                        trailingIcon = {
-                            if (searchQuery.isNotEmpty()) {
-                                IconButton(
-                                    onClick = {
-                                        onSearchQueryChanged("")
+                Column(modifier = Modifier.fillMaxSize()) {
+                    Row(verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth().padding(paddingValues)){
+                        TextField(
+                            colors = TextFieldDefaults.colors(
+                                focusedIndicatorColor = Color.Transparent,
+                                unfocusedTextColor = Color.Transparent,
+                                disabledIndicatorColor = Color.Transparent
+                            ),
+                            trailingIcon = {
+                                if (searchQuery.isNotEmpty()) {
+                                    IconButton(
+                                        onClick = {
+                                            onSearchQueryChanged("")
+                                        }
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Rounded.Close,
+                                            contentDescription = "Clear search text",
+                                            tint = MaterialTheme.colorScheme.onSurface
+                                        )
                                     }
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Rounded.Close,
-                                        contentDescription = "Clear search text",
-                                        tint = MaterialTheme.colorScheme.onSurface
+                                }
+                            },
+                            onValueChange = {
+                                if ("\n" !in it) onSearchQueryChanged(it)
+                            },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp)
+                                .focusRequester(focusRequester)
+                                .onKeyEvent {
+                                    if (it.key == Key.Enter) {
+                                        if (searchQuery.isBlank()) return@onKeyEvent false
+                                        onSearchExplicitlyTriggered()
+                                        true
+                                    } else {
+                                        false
+                                    }
+                                }
+                                .testTag("searchTextField"),
+                            shape = RoundedCornerShape(32.dp),
+                            value = searchQuery,
+                            keyboardOptions = KeyboardOptions(
+                                imeAction = ImeAction.Search,
+                            ),
+                            keyboardActions = KeyboardActions(
+                                onSearch = {
+                                    if (searchQuery.isBlank()) return@KeyboardActions
+                                    onSearchExplicitlyTriggered()
+                                }
+                            ),
+                            maxLines = 1,
+                            singleLine = true,
+                        )
+
+                    }
+
+
+                    if(searchQuery.isEmpty()){
+                        Text("No items")
+                    } else {
+                        LazyColumn(modifier = Modifier
+                            .fillMaxWidth(),
+                            horizontalAlignment = Alignment.CenterHorizontally){
+
+
+                            items(searchResultUIState.dogList.message.keys.toList()){ dogs ->
+                                Column{
+                                    Text(
+                                        text = dogs,
+                                        fontSize = 26.sp,
+                                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 7.dp)
                                     )
                                 }
                             }
-                        },
-                        onValueChange = {
-                            if ("\n" !in it) onSearchQueryChanged(it)
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp)
-                            .focusRequester(focusRequester)
-                            .onKeyEvent {
-                                if (it.key == Key.Enter) {
-                                    if (searchQuery.isBlank()) return@onKeyEvent false
-                                    onSearchExplicitlyTriggered()
-                                    true
-                                } else {
-                                    false
-                                }
-                            }
-                            .testTag("searchTextField"),
-                        shape = RoundedCornerShape(32.dp),
-                        value = searchQuery,
-                        keyboardOptions = KeyboardOptions(
-                            imeAction = ImeAction.Search,
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onSearch = {
-                                if (searchQuery.isBlank()) return@KeyboardActions
-                                onSearchExplicitlyTriggered()
-                            }
-                        ),
-                        maxLines = 1,
-                        singleLine = true,
-                    )
+                        }
+                    }
                     LaunchedEffect(Unit) {
                         focusRequester.requestFocus()
                     }
                 }
 
-                LazyColumn(modifier = Modifier
-                    .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally){
 
-                    items(searchResultUIState.dogList){ dogs ->
-                        Text("$dogs")
-                    }
-                }
+
+
             }
             is SearchResultUIState.Empty -> {
-                Row(verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth().padding(paddingValues)){
-                    IconButton(
-                        onClick = { onBackClicked()}
-                    ){
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
-                        )
-                    }
-                }
                 Column(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ){
+                    Row(verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth().padding(paddingValues)){
+                        IconButton(
+                            onClick = { onBackClicked()}
+                        ){
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = "Back"
+                            )
+                        }
+                    }
                     Text("Empty")
                 }
+
             }
 
         }

@@ -2,7 +2,7 @@ package com.example.dogbreedsproject
 
 import com.example.dogbreedsproject.MockedDogBreeds.mockedDogImageList
 import com.example.dogbreedsproject.MockedDogBreeds.mockedDogImageListUIModel
-import com.example.dogbreedsproject.domain.GetDogBreedImageListUseCase
+import com.example.dogbreedsproject.domain.usecases.GetDogBreedImageListUseCase
 import com.example.dogbreedsproject.presentation.dogbreedrandomimages.DogBreedRandomImageUIState
 import com.example.dogbreedsproject.presentation.dogbreedrandomimages.DogBreedRandomImageViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi

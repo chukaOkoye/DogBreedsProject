@@ -3,8 +3,10 @@ package com.example.dogbreedsproject.presentation.dogbreedsearch
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.dogbreedsproject.domain.GetDogBreedSearchResultUseCase
+import com.example.dogbreedsproject.domain.usecases.GetDogBreedSearchResultUseCase
 import com.example.dogbreedsproject.domain.model.DogBreedSearchResult
+import com.example.dogbreedsproject.presentation.dogbreedsearch.mappers.DogBreedSearchResultUIModel
+import com.example.dogbreedsproject.presentation.dogbreedsearch.mappers.toSearchResultUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -23,7 +25,7 @@ import javax.inject.Inject
 sealed class SearchResultUIState {
     data object Loading : SearchResultUIState()
     data class Success(
-        val dogList: List<DogBreedSearchResult>
+        val dogList: DogBreedSearchResultUIModel
     ) : SearchResultUIState()
 
     data class Error(
@@ -41,20 +43,25 @@ class DogBreedSearchViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
+
     val searchQuery = savedStateHandle.getStateFlow(SEARCH_QUERY, "")
     @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
     val searchQueryUIState: StateFlow<SearchResultUIState> = searchQuery
         .debounce(300)
         .distinctUntilChanged()
         .flatMapLatest{query ->
+//            if(query.isEmpty()){
+//                flowOf(SearchResultUIState.Empty)
+//            } else {
                 getDogBreedSearchUseCase(query)
                     .map<DogBreedSearchResult, SearchResultUIState>{
                             result ->
-                        SearchResultUIState.Success(listOf(result))
+                        SearchResultUIState.Success(result.toSearchResultUIState())
                     }
                     .onStart { emit(SearchResultUIState.Loading) }
                     .catch { SearchResultUIState.Error("Error loading") }
 
+//            }
 
         }
         .onEach { println("Current State: $it") }

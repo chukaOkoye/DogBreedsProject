@@ -1,4 +1,4 @@
-package com.example.dogbreedsproject.domain
+package com.example.dogbreedsproject.domain.usecases
 
 import com.example.dogbreedsproject.domain.model.DogBreedImageList
 import com.example.dogbreedsproject.domain.repository.DogBreedRepository

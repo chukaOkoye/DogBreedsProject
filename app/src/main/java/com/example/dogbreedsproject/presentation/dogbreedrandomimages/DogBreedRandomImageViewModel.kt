@@ -2,7 +2,7 @@ package com.example.dogbreedsproject.presentation.dogbreedrandomimages
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.dogbreedsproject.domain.GetDogBreedImageListUseCase
+import com.example.dogbreedsproject.domain.usecases.GetDogBreedImageListUseCase
 import com.example.dogbreedsproject.presentation.dogbreedrandomimages.mappers.DogBreedImageListUIModel
 import com.example.dogbreedsproject.presentation.dogbreedrandomimages.mappers.toDogBreedImageListUIModel
 import dagger.hilt.android.lifecycle.HiltViewModel
